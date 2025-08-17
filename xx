@@ -1,227 +1,686 @@
-<div class="page-background">
-    <div class="register-container">
-        <h2>Customer Registration</h2>
-        <br>
-
-
-        <div [hidden]="isVisible">
-
-
-
-
-            <form (ngSubmit)="addCustomer()">
-                <label for="name">Name</label>
-                <input type="text" name="name" placeholder="name.." [(ngModel)]="customer.name">
-
-
-                <div *ngIf="hasValidationError('name')">
-                    {{getValidationErrorMessage('name')}}
-                </div>
-
-
-
-
-                <br>
-                <br>
-
-
-                <label for="dateOfBirth">Date Of Birth</label>
-                <input type="date" name="dateOfBirth" placeholder="Enter Date of Birth.."
-                    [(ngModel)]="customer.dateOfBirth">
-
-
-                <div *ngIf="hasValidationError('dateOfBirth')">
-                    {{getValidationErrorMessage('dateOfBirth')}}
-                </div>
-
-
-
-
-
-
-                <label for="gender">Gender</label>
-                <select name="gender" id="gender" [(ngModel)]="customer.gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-
-
-                <div *ngIf="hasValidationError('gender')">
-                    {{getValidationErrorMessage('gender')}}
-                </div>
-
-
-           
-<br><br>
-                <label for="mobileNum">Mobile Number</label>
-                <input type="text" name="mobileNum" placeholder="Enter your Mobile Number.."
-                    [(ngModel)]="customer.mobileNum">
-
-
-
-
-                <div *ngIf="hasValidationError('mobileNum')">
-                    {{getValidationErrorMessage('mobileNum')}}
-                </div>
-
-
-
-
-                <br><br>
-
-
-
-
-                <label for="emailId">Email Id</label>
-                <input type="text" name="emailId" placeholder="Enter your Email Id.." [(ngModel)]="customer.emailId">
-
-
-
-
-                <div *ngIf="hasValidationError('emailId')">
-                    {{getValidationErrorMessage('emailId')}}
-                </div>
-
-
-       
-
-
-                <label for="aadharNo">Aadhar Number</label>
-                <input type="text" name="aadharNo" placeholder="Enter your Aadhar Number.."
-                    [(ngModel)]="customer.aadharNo">
-
-
-
-
-                <div *ngIf="hasValidationError('aadharNo')">
-                    {{getValidationErrorMessage('aadharNo')}}
-                </div>
-
-
-                <br><br>
-
-
-                <label for="streetName">Street Name</label>
-                <input type="text" name="streetName" placeholder="Enter Street Name.."
-                    [(ngModel)]="customer.streetName">
-
-
-
-
-                <div *ngIf="hasValidationError('streetName')">
-                    {{getValidationErrorMessage('streetName')}}
-                </div>
-
-
-                <br><br>
-
-
-                <label for="city">City</label>
-                <input type="text" name="city" placeholder="Enter City.." [(ngModel)]="customer.city">
-
-
-
-
-                <div *ngIf="hasValidationError('city')">
-                    {{getValidationErrorMessage('city')}}
-                </div>
-
-
-                <br><br>
-
-
-                <label for="state">State</label>
-                <select name="state" [(ngModel)]="customer.state">
-                    <option value="-">Select State</option>
-                    <option *ngFor="let s of state" value="{{s}}">{{s}}</option>
-                </select>
-                <div *ngIf="hasValidationError('state')">
-                    {{getValidationErrorMessage('state')}}
-                </div>
-
-
-
-
-                <br><br>
-
-
-                <label for="pincode">Pincode</label>
-                <input type="text" name="pincode" placeholder="Enter your pincode.." [(ngModel)]="customer.pincode">
-
-
-                <div *ngIf="hasValidationError('pincode')">
-                    {{getValidationErrorMessage('pincode')}}
-                </div>
-
-
-                <br><br>
-
-
-
-
-                <label for="username">Username</label>
-                <input type="text" name="username" placeholder="Create Username" [(ngModel)]="customer.username">
-
-
-
-
-                <div *ngIf="hasValidationError('username')">
-                    {{getValidationErrorMessage('username')}}
-                </div>
-
-
-                <br><br>
-
-
-
-
-                <label for="password">Password</label>
-                <input type="password" name="password" placeholder="Create your Password"
-                    [(ngModel)]="customer.password">
-                <span class="input-icon">🔒</span>
-
-
-                <div *ngIf="hasValidationError('password')">
-                    {{getValidationErrorMessage('password')}}
-                </div>
-
-
-                <br><br>
-
-
-                <label for="accountType">Account Type</label>
-                <select name="accountType" id="accountType" [(ngModel)]="customer.accountType">
-                    <option value="Saving">Saving</option>
-                    <option value="Current">Current</option>
-                    <option value="Fixed Deposit">Fixed Deposit</option>
-                </select>
-
-
-                <div *ngIf="hasValidationError('accountType')">
-                    {{getValidationErrorMessage('accountType')}}
-                </div>
-
-
-                <br>
-                <button  type="submit" value="Submit">Submit</button>
-            </form>
+<h1>{{showDetails()}}</h1>
+<header>
+    <div class="header-content">
+        <div class="logo">
+            <div class="logo-icon">SB</div>
+            SecureBank
         </div>
-
-
-
-
-        <div [hidden]="!isVisible">
-            <br>
-            <h4>
-                Your Verification is on Review
-            </h4>
-            <button (click)="backToHome()">Back to Home</button>
-            <br>
+        <div class="user-info">
+            <h3>Welcome, {{showUsername()}}</h3>
+            <div class="user-avatar">JD</div>
+            <button class="logout-btn" (click)="logout()">Logout</button>
         </div>
-
-
     </div>
+</header>
 
+<!-- Main Layout -->
+<div class="main-layout">
+    <!-- Left Sidebar - Dashboard Menu -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+            <p>Quick access to all services</p>
+        </div>
 
+        <div class="menu-section">
+            <div class="menu-title">Banking Services</div>
+            <a href="#" class="menu-item active" data-section="overview">
+                <span class="menu-icon">🏠</span>
+                <span>Account Overview</span>
+            </a>
+            <a href="cheque" class="menu-item" data-section="issue-cheque">
+                <span class="menu-icon">📝</span>
+                <span>Issue Cheque</span>
+            </a>
+            <a class="menu-item" data-section="pending-cheques" (click)="showAccountNo()" >
+                <span class="menu-icon">⏳</span>
+                <span>Pending Cheques
+                </span>
+                <span class="notification-badge">{{len}}</span>
+            </a>
+            <a href="#" class="menu-item" data-section="neft">
+                <span class="menu-icon">💸</span>
+                <span>NEFT Transfer</span>
+            </a>
+            <a href="#" class="menu-item" data-section="fund-transfer">
+                <span class="menu-icon">🔄</span>
+                <span>Fund Transfer</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-title">Account Management</div>
+            <a href="#" class="menu-item" data-section="statements">
+                <span class="menu-icon">📊</span>
+                <span>Bank Statements</span>
+            </a>
+            <a href="#" class="menu-item" data-section="transactions">
+                <span class="menu-icon">📋</span>
+                <span>Transaction History</span>
+            </a>
+            <a href="#" class="menu-item" data-section="beneficiaries">
+                <span class="menu-icon">👥</span>
+                <span>Manage Beneficiaries</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-title">Services</div>
+            <a href="#" class="menu-item" data-section="cards">
+                <span class="menu-icon">💳</span>
+                <span>Cards & ATM</span>
+            </a>
+            <a href="#" class="menu-item" data-section="loans">
+                <span class="menu-icon">🏡</span>
+                <span>Loans & Credit</span>
+            </a>
+            <a href="#" class="menu-item" data-section="investments">
+                <span class="menu-icon">📈</span>
+                <span>Investments</span>
+            </a>
+            <a href="#" class="menu-item" data-section="settings">
+                <span class="menu-icon">⚙️</span>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Right Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Welcome Section -->
+        <div class="welcome-section animated">
+            <div class="welcome-header">
+                <div class="welcome-text">
+                    <h1>Good Morning, {{showUsername()}} !</h1>
+                    <p>Here's your account summary for today</p>
+                </div>
+                <div class="current-time" id="currentTime"></div>
+            </div>
+        </div>
+
+        <!-- Account Overview Cards -->
+        <div class="account-overview">
+            <div class="account-card animated" style="animation-delay: 0.1s">
+                <h3>Savings Account</h3>
+                <div class="account-number">Account: ****7892</div>
+                <div class="balance">₹2,45,680.50</div>
+                <div class="balance-label">Available Balance</div>
+            </div>
+
+            <div class="account-card animated" style="animation-delay: 0.2s">
+                <h3>Current Account</h3>
+                <div class="account-number">Account: ****3456</div>
+                <div class="balance">₹8,92,340.25</div>
+                <div class="balance-label">Available Balance</div>
+            </div>
+
+            <div class="account-card animated" style="animation-delay: 0.3s">
+                <h3>Fixed Deposit</h3>
+                <div class="account-number">FD: ****9876</div>
+                <div class="balance">₹5,00,000.00</div>
+                <div class="balance-label">Maturity: Dec 2025</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions animated" style="animation-delay: 0.4s">
+            <h2 class="section-title">
+                <span>⚡</span>
+                Quick Actions
+            </h2>
+            <div class="actions-grid">
+                <div class="action-card" onclick="navigateTo('issue-cheque')">
+                    <div class="action-icon">📝</div>
+                    <div class="action-title">Issue Cheque</div>
+                    <div class="action-desc">Create and issue new cheques</div>
+                </div>
+                <div class="action-card secondary" onclick="navigateTo('neft')">
+                    <div class="action-icon">💸</div>
+                    <div class="action-title">NEFT Transfer</div>
+                    <div class="action-desc">Transfer funds via NEFT</div>
+                </div>
+                <div class="action-card success" onclick="navigateTo('fund-transfer')">
+                    <div class="action-icon">🔄</div>
+                    <div class="action-title">Fund Transfer</div>
+                    <div class="action-desc">Transfer between accounts</div>
+                </div>
+                <div class="action-card warning" onclick="navigateTo('statements')">
+                    <div class="action-icon">📊</div>
+                    <div class="action-title">View Statements</div>
+                    <div class="action-desc">Download account statements</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="recent-transactions animated" style="animation-delay: 0.5s">
+            <h2 class="section-title">
+                <span>📋</span>
+                Recent Transactions
+            </h2>
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-desc">Online Transfer to Priya Sharma</div>
+                        <div class="transaction-date">Today, 2:30 PM</div>
+                    </div>
+                    <div class="transaction-amount debit">-₹15,000.00</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-desc">Salary Credit - ABC Corp</div>
+                        <div class="transaction-date">Yesterday, 9:15 AM</div>
+                    </div>
+                    <div class="transaction-amount credit">+₹85,000.00</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-desc">ATM Withdrawal - MG Road</div>
+                        <div class="transaction-date">Aug 8, 6:45 PM</div>
+                    </div>
+                    <div class="transaction-amount debit">-₹5,000.00</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-desc">Cheque Deposit - Ref #CH12345</div>
+                        <div class="transaction-date">Aug 7, 11:20 AM</div>
+                    </div>
+                    <div class="transaction-amount credit">+₹25,500.00</div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
+.header-content {
+max-width: 1400px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+header{
+    padding: 8px;
+}
+.logo {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 1.5rem;
+font-weight: bold;
+color: #2c3e50;
+}
+
+.logo-icon {
+width: 40px;
+height: 40px;
+background: linear-gradient(45deg, #3498db, #2980b9);
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: bold;
+}
+
+.user-info {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.user-avatar {
+width: 35px;
+height: 35px;
+background: linear-gradient(45deg, #e74c3c, #c0392b);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: bold;
+}
+
+.logout-btn {
+background: linear-gradient(135deg, #e74c3c, #c0392b);
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.3s ease;
+font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+transform: translateY(-1px);
+box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Main Layout */
+.main-layout {
+flex: 1;
+display: flex;
+min-height: 0;
+}
+
+/* Left Sidebar - Dashboard Menu */
+.sidebar {
+width: 30%;
+background: rgba(44, 62, 80, 0.95);
+backdrop-filter: blur(10px);
+color: white;
+overflow-y: auto;
+flex-shrink: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+background: rgba(255, 255, 255, 0.3);
+border-radius: 3px;
+}
+
+.sidebar-header {
+padding: 1.5rem;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+background: rgba(52, 152, 219, 0.2);
+}
+
+.sidebar-header h2 {
+font-size: 1.3rem;
+color: #3498db;
+margin-bottom: 0.5rem;
+}
+
+.sidebar-header p {
+font-size: 0.9rem;
+opacity: 0.8;
+}
+
+.menu-section {
+padding: 1rem 0;
+}
+
+.menu-title {
+padding: 0 1.5rem 0.5rem;
+font-size: 0.8rem;
+font-weight: 600;
+color: #bdc3c7;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+.menu-item {
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1rem 1.5rem;
+color: #ecf0f1;
+text-decoration: none;
+transition: all 0.3s ease;
+cursor: pointer;
+border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+background: rgba(52, 152, 219, 0.2);
+border-left-color: #3498db;
+color: white;
+}
+
+.menu-item.active {
+background: rgba(52, 152, 219, 0.3);
+border-left-color: #3498db;
+color: #3498db;
+}
+
+.menu-icon {
+font-size: 1.2rem;
+width: 20px;
+text-align: center;
+}
+
+/* Main Content Area */
+.main-content {
+flex: 1;
+padding: 2rem;
+overflow-y: auto;
+background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.main-content::-webkit-scrollbar {
+width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+background: #c1c1c1;
+border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+background: #a8a8a8;
+}
+
+.welcome-section {
+background: rgba(255, 255, 255, 0.9);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 2rem;
+margin-bottom: 2rem;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+}
+
+.welcome-text h1 {
+color: #2c3e50;
+font-size: 2rem;
+margin-bottom: 0.5rem;
+}
+
+.welcome-text p {
+color: #7f8c8d;
+font-size: 1rem;
+}
+
+.current-time {
+color: #3498db;
+font-weight: 600;
+font-size: 1.1rem;
+}
+
+/* Account Overview Cards */
+.account-overview {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.5rem;
+margin-bottom: 2rem;
+}
+
+.account-card {
+background: rgba(255, 255, 255, 0.9);
+border-radius: 15px;
+padding: 1.5rem;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease;
+border-left: 4px solid #3498db;
+}
+
+.account-card:hover {
+transform: translateY(-5px);
+}
+
+.account-card h3 {
+color: #2c3e50;
+margin-bottom: 0.5rem;
+font-size: 1.1rem;
+}
+
+.account-number {
+color: #7f8c8d;
+font-size: 0.9rem;
+margin-bottom: 1rem;
+}
+
+.balance {
+font-size: 1.8rem;
+font-weight: bold;
+color: #27ae60;
+}
+
+.balance-label {
+font-size: 0.8rem;
+color: #7f8c8d;
+margin-top: 0.3rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+background: rgba(255, 255, 255, 0.9);
+border-radius: 15px;
+padding: 2rem;
+margin-bottom: 2rem;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+color: #2c3e50;
+font-size: 1.5rem;
+margin-bottom: 1.5rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.actions-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+}
+
+.action-card {
+background: linear-gradient(135deg, #3498db, #2980b9);
+color: white;
+padding: 1.5rem;
+border-radius: 12px;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s ease;
+text-decoration: none;
+}
+
+.action-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+}
+
+.action-card.secondary {
+background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.action-card.success {
+background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.action-card.warning {
+background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.action-icon {
+font-size: 2rem;
+margin-bottom: 0.5rem;
+}
+
+.action-title {
+font-size: 1rem;
+font-weight: 600;
+margin-bottom: 0.3rem;
+}
+
+.action-desc {
+font-size: 0.8rem;
+opacity: 0.9;
+}
+
+/* Recent Transactions */
+.recent-transactions {
+background: rgba(255, 255, 255, 0.9);
+border-radius: 15px;
+padding: 2rem;
+margin-bottom: 2rem;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-list {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+
+.transaction-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+background: #f8f9fa;
+border-radius: 10px;
+border-left: 4px solid #3498db;
+transition: all 0.3s ease;
+}
+
+.transaction-item:hover {
+background: #e3f2fd;
+transform: translateX(5px);
+}
+
+.transaction-info {
+display: flex;
+flex-direction: column;
+gap: 0.3rem;
+}
+
+.transaction-desc {
+font-weight: 600;
+color: #2c3e50;
+}
+
+.transaction-date {
+font-size: 0.8rem;
+color: #7f8c8d;
+}
+
+.transaction-amount {
+font-weight: bold;
+font-size: 1.1rem;
+}
+
+.credit {
+color: #27ae60;
+}
+
+.debit {
+color: #e74c3c;
+}
+
+/* Footer */
+footer {
+background: rgba(44, 62, 80, 0.95);
+backdrop-filter: blur(10px);
+color: white;
+padding: 1rem;
+flex-shrink: 0;
+}
+
+.footer-content {
+max-width: 1400px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1.5rem;
+text-align: center;
+}
+
+.footer-section h3 {
+margin-bottom: 0.5rem;
+color: #3498db;
+font-size: 0.9rem;
+}
+
+.footer-section p, .footer-section a {
+color: #bdc3c7;
+text-decoration: none;
+line-height: 1.4;
+font-size: 0.8rem;
+}
+
+.footer-bottom {
+margin-top: 1rem;
+padding-top: 1rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: #95a5a6;
+font-size: 0.8rem;
+text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.main-layout {
+flex-direction: column;
+
+}
+
+.sidebar {
+width: 100%;
+height: auto;
+max-height: 200px;
+}
+
+.main-content {
+padding: 1rem;
+}
+
+.account-overview {
+grid-template-columns: 1fr;
+}
+
+.actions-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.user-info span {
+display: none;
+}
+}
+
+/* Notification Badge */
+.notification-badge {
+position: relative;
+display: inline-block;
+}
+
+.notification-badge{
+
+position: absolute;
+top: -5px;
+right: -5px;
+background: #e74c3c;
+color: white;
+font-size: 0.7rem;
+padding: 2px 6px;
+border-radius: 10px;
+min-width: 18px;
+text-align: center;
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.animated {
+animation: fadeInUp 0.6s ease-out forwards;
+}
