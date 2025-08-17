@@ -1,3 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureBank - Open New Account</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+/* Header */
+header {
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+padding: 0.8rem 2rem;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+flex-shrink: 0;
+z-index: 100;
+}
+
+.header-content {
+max-width: 1400px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 1.5rem;
+font-weight: bold;
+color: #2c3e50;
+}
+
+.logo-icon {
+width: 40px;
+height: 40px;
+background: linear-gradient(45deg, #3498db, #2980b9);
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: bold;
+}
+
+.nav-breadcrumb {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+color: #7f8c8d;
+font-size: 0.9rem;
+}
+
+.nav-breadcrumb a {
+color: #3498db;
+text-decoration: none;
+}
+
+.nav-breadcrumb a:hover {
+text-decoration: underline;
+}
+
+.user-info {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.user-avatar {
+width: 35px;
+height: 35px;
+background: linear-gradient(45deg, #e74c3c, #c0392b);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: bold;
+}
+
+.back-btn {
+background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.3s ease;
+font-size: 0.9rem;
+margin-right: 0.5rem;
+}
+
+.back-btn:hover {
+transform: translateY(-1px);
+box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+}
+
+/* Main Content */
+main {
+flex: 1;
+padding: 2rem;
+display: flex;
+flex-direction: column;
+gap: 2rem;
+}
+
+/* Account Info Cards */
+.account-info-section {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-bottom: 2rem;
+animation: slideUp 0.6s ease-out;
+}
+
+.account-card {
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+border-radius: 20px;
+padding: 2rem;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.account-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 4px;
+background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.account-card.current::before {
+background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.account-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.account-card h3 {
+color: #2c3e50;
+font-size: 1.5rem;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.account-card .icon {
+font-size: 2rem;
+}
+
+.account-features {
+list-style: none;
+padding: 0;
+margin: 1rem 0;
+}
+
+.account-features li {
+padding: 0.8rem 0;
+border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+color: #555;
+}
+
+.account-features li:last-child {
+border-bottom: none;
+}
+
+.account-features li::before {
+content: '✓';
+color: #27ae60;
+font-weight: bold;
+font-size: 1.1rem;
+}
+
+.highlight {
+background: linear-gradient(135deg, #3498db10, #2980b910);
+padding: 1rem;
+border-radius: 10px;
+margin-top: 1rem;
+border-left: 4px solid #3498db;
+}
+
+.highlight.current {
+background: linear-gradient(135deg, #e67e2210, #d3540010);
+border-left-color: #e67e22;
+}
+
+/* Form Section */
+.form-section {
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+border-radius: 20px;
+padding: 3rem;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+animation: slideUp 0.6s ease-out 0.2s both;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.form-section h2 {
+text-align: center;
+color: #2c3e50;
+font-size: 2rem;
+margin-bottom: 2rem;
+position: relative;
+}
+
+.form-section h2::after {
+content: '';
+position: absolute;
+bottom: -10px;
+left: 50%;
+transform: translateX(-50%);
+width: 80px;
+height: 4px;
+background: linear-gradient(135deg, #3498db, #2980b9);
+border-radius: 2px;
+}
+
+/* Form Styling */
+form {
+display: flex;
+flex-direction: column;
+gap: 2rem;
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+position: relative;
+}
+
+label {
+color: #2c3e50;
+font-weight: 600;
+margin-bottom: 0.5rem;
+font-size: 1rem;
+}
+
+.customer-id-display {
+background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+padding: 1rem;
+border-radius: 12px;
+font-size: 1.1rem;
+font-weight: 600;
+color: #2c3e50;
+text-align: center;
+border: 2px solid #3498db;
+}
+
+select, input {
+padding: 1.2rem;
+border: 2px solid #ecf0f1;
+border-radius: 12px;
+font-size: 1rem;
+transition: all 0.3s ease;
+background: rgba(255, 255, 255, 0.8);
+}
+
+select:focus, input:focus {
+outline: none;
+border-color: #3498db;
+background: white;
+box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+transform: translateY(-2px);
+}
+
+/* Account Type Selector */
+.account-type-selector {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+margin: 1rem 0;
+}
+
+.account-option {
+background: white;
+border: 2px solid #ecf0f1;
+border-radius: 12px;
+padding: 1.5rem;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+}
+
+.account-option:hover {
+border-color: #3498db;
+transform: translateY(-2px);
+}
+
+.account-option.selected {
+border-color: #3498db;
+background: linear-gradient(135deg, #3498db10, #2980b910);
+}
+
+.account-option.selected::after {
+content: '✓';
+position: absolute;
+top: 10px;
+right: 15px;
+color: #3498db;
+font-weight: bold;
+font-size: 1.2rem;
+}
+
+.account-option h4 {
+color: #2c3e50;
+margin-bottom: 0.5rem;
+}
+
+.account-option p {
+color: #7f8c8d;
+font-size: 0.9rem;
+}
+
+/* Amount Input with Currency */
+.amount-input-group {
+position: relative;
+}
+
+.amount-input-group::before {
+content: '₹';
+position: absolute;
+left: 15px;
+top: 50%;
+transform: translateY(-50%);
+font-size: 1.2rem;
+color: #27ae60;
+font-weight: bold;
+z-index: 1;
+}
+
+.amount-input-group input {
+padding-left: 3rem;
+}
+
+/* Submit Button */
+button[type="submit"] {
+background: linear-gradient(135deg, #3498db, #2980b9);
+color: white;
+border: none;
+padding: 1.5rem 2rem;
+border-radius: 12px;
+font-size: 1.2rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+transform: translateY(-3px);
+box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+}
+
+button[type="submit"]:active {
+transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+.account-info-section {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 768px) {
+main {
+padding: 1rem;
+}
+
+.form-section {
+padding: 2rem;
+}
+
+.account-type-selector {
+grid-template-columns: 1fr;
+}
+
+.user-info span {
+display: none;
+}
+
+.form-section h2 {
+font-size: 1.5rem;
+}
+}
+
+/* Animations */
+@keyframes slideUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Loading Animation */
+.loading {
+display: inline-block;
+width: 20px;
+height: 20px;
+border: 2px solid #ffffff;
+border-radius: 50%;
+border-top-color: transparent;
+animation: spin 1s ease-in-out infinite;
+margin-right: 10px;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<!-- Header -->
 <header>
     <div class="header-content">
         <div class="logo">
@@ -7,7 +454,7 @@
         <div class="nav-breadcrumb">
             <a href="#">Dashboard</a>
             <span>›</span>
-            <span>Cheque Issue</span>
+            <span>Open Account</span>
         </div>
         <div class="user-info">
             <button class="back-btn">← Back</button>
@@ -16,47 +463,144 @@
         </div>
     </div>
 </header>
-<div class="">
-    <div class="">
+
+<main>
+    <!-- Account Information Cards -->
+    <div class="account-info-section">
+        <!-- Savings Account Card -->
+        <div class="account-card savings">
+            <h3>
+                <span class="icon">🏦</span>
+                Savings Account
+            </h3>
+            <p>Perfect for personal banking and building your savings with competitive interest rates.</p>
+            
+            <ul class="account-features">
+                <li>4.5% Annual Interest Rate</li>
+                <li>No Monthly Maintenance Fee</li>
+                <li>Free ATM Withdrawals</li>
+                <li>Online & Mobile Banking</li>
+                <li>Minimum Balance: ₹1,000</li>
+                <li>Quarterly Interest Payouts</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Best for:</strong> Individual customers looking to save money and earn interest on their deposits.
+            </div>
+        </div>
+
+        <!-- Current Account Card -->
+        <div class="account-card current">
+            <h3>
+                <span class="icon">💼</span>
+                Current Account
+            </h3>
+            <p>Designed for businesses and professionals with high transaction volumes.</p>
+            
+            <ul class="account-features">
+                <li>Unlimited Transactions</li>
+                <li>No Transaction Limits</li>
+                <li>Overdraft Facility Available</li>
+                <li>Business Banking Services</li>
+                <li>Minimum Balance: ₹10,000</li>
+                <li>Priority Customer Support</li>
+            </ul>
+
+            <div class="highlight current">
+                <strong>Best for:</strong> Businesses, entrepreneurs, and professionals with frequent transactions.
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
         <h2>Open New Account</h2>
-        <br>
+        
+        <form (ngSubmit)="openAccount()">
+            <div class="form-group">
+                <label for="customerId">Customer ID</label>
+                <div class="customer-id-display">
+                    {{showDetails()}}
+                </div>
+            </div>
 
-        <div>
-
-            <form (ngSubmit)="openAccount()">
-                <label for="customerId">Customer Id : {{showDetails()}}</label>
-                 
-
-                <br>
+            <div class="form-group">
+                <label for="accountType">Select Account Type</label>
+                <div class="account-type-selector">
+                    <div class="account-option" [class.selected]="selectedAccountType === 'Savings'" 
+                         (click)="selectedAccountType = 'Savings'">
+                        <h4>🏦 Savings</h4>
+                        <p>For personal use</p>
+                    </div>
+                    <div class="account-option" [class.selected]="selectedAccountType === 'Current'" 
+                         (click)="selectedAccountType = 'Current'">
+                        <h4>💼 Current</h4>
+                        <p>For business use</p>
+                    </div>
+                </div>
                 
-
-                <label for="validity">Account Type :  </label>
-                <select name="validity" [(ngModel)]="selectedAccountType">
+                <!-- Hidden select for form binding -->
+                <select name="accountType" [(ngModel)]="selectedAccountType" style="display: none;">
                     <option value="">--select--</option>
                     <option value="Current">Current</option>
                     <option value="Savings">Savings</option>
-                    
                 </select>
+            </div>
 
+            <div class="form-group" *ngIf="selectedAccountType">
+                <label for="amount">Initial Deposit Amount</label>
+                <div class="amount-input-group">
+                    <input *ngIf="selectedAccountType==='Savings'" 
+                           type="number" 
+                           id="amountSavings" 
+                           name="amountSavings" 
+                           placeholder="Minimum ₹1,000 required" 
+                           min="1000"
+                           [(ngModel)]="savings.balance">
+                    <input *ngIf="selectedAccountType==='Current'" 
+                           type="number" 
+                           id="amountCurrent" 
+                           name="amountCurrent" 
+                           placeholder="Minimum ₹10,000 required" 
+                           min="10000"
+                           [(ngModel)]="current.balance">
+                </div>
+                <small style="color: #7f8c8d; margin-top: 0.5rem; display: block;">
+                    <span *ngIf="selectedAccountType==='Savings'">
+                        ℹ️ Minimum balance: ₹1,000 | Interest Rate: 4.5% per annum
+                    </span>
+                    <span *ngIf="selectedAccountType==='Current'">
+                        ℹ️ Minimum balance: ₹10,000 | No interest, but unlimited transactions
+                    </span>
+                </small>
+            </div>
 
-                <br>
-                <br>
-
-                <label for="amount">Amount : </label>
-
-                <input *ngIf="selectedAccountType==='Savings'" type="text" id="amountSavings" name="amountSavings" placeholder="Enter Initial Balance.." 
-                 [(ngModel)]="savings.balance">
-                  <input *ngIf="selectedAccountType==='Current'" type="text" id="amountCurrent" name="amountCurrent" placeholder="Enter Initial Balance.." 
-                 [(ngModel)]="current.balance">
-
-                <br>
-                <button  type="submit" value="Submit">Submit</button>
-                <!-- <input type="submit" value="Submit"> -->
-            </form>
-        </div>
-
-
-
+            <button type="submit" [disabled]="!selectedAccountType">
+                <span class="loading" style="display: none;"></span>
+                Open {{selectedAccountType}} Account
+            </button>
+        </form>
     </div>
+</main>
 
-</div>
+<script>
+// Mock functions for demonstration
+function showDetails() {
+    return 'CUST001234';
+}
+
+// Add click handlers for account type selection
+document.addEventListener('DOMContentLoaded', function() {
+    const accountOptions = document.querySelectorAll('.account-option');
+    accountOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            accountOptions.forEach(opt => opt.classList.remove('selected'));
+            // Add selected class to clicked option
+            this.classList.add('selected');
+        });
+    });
+});
+</script>
+</body>
+</html>
