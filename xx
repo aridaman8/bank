@@ -1,164 +1,227 @@
-/* Center login on screen */
-main {
-  min-height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #e0eafc, #cfdef3);
-  padding: 2rem;
-}
+<div class="page-background">
+    <div class="register-container">
+        <h2>Customer Registration</h2>
+        <br>
 
-/* Card */
-.login-container {
-  display: flex;
-  flex-direction: row;
-  max-width: 850px;
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  background: white;
-}
 
-/* Left Banner */
-.bank-image-section {
-  flex: 1;
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
-}
+        <div [hidden]="isVisible">
 
-.bank-text h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.8rem;
-}
-.bank-text p {
-  font-size: 1rem;
-  opacity: 0.9;
-}
 
-/* Right Form */
-.login-form-section {
-  flex: 1;
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.form-header h1 {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 0.3rem;
-}
-.form-header p {
-  color: #7f8c8d;
-  margin-bottom: 2rem;
-}
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-.form-group label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-weight: 500;
-  color: #2c3e50;
-}
-.form-group input {
-  width: 100%;
-  padding: 0.9rem;
-  border: 1px solid #dcdfe6;
-  border-radius: 8px;
-  font-size: 1rem;
-  background: #f9fafc;
-  transition: 0.2s;
-}
-.form-group input:focus {
-  border-color: #3498db;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.15);
-  outline: none;
-}
+            <form (ngSubmit)="addCustomer()">
+                <label for="name">Name</label>
+                <input type="text" name="name" placeholder="name.." [(ngModel)]="customer.name">
 
-/* Button */
-.login-btn {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-  padding: 0.9rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.login-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(52,152,219,0.3);
-}
 
-/* Extra Links */
-.remember-forgot {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  margin-top: -0.5rem;
-  margin-bottom: 1.2rem;
-}
-.forgot-password {
-  color: #3498db;
-  text-decoration: none;
-}
-.forgot-password:hover {
-  text-decoration: underline;
-}
+                <div *ngIf="hasValidationError('name')">
+                    {{getValidationErrorMessage('name')}}
+                </div>
 
-.divider {
-  text-align: center;
-  margin: 1.5rem 0;
-  position: relative;
-}
-.divider::before {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; top: 50%;
-  height: 1px;
-  background: #ecf0f1;
-}
-.divider span {
-  background: white;
-  padding: 0 0.7rem;
-  color: #7f8c8d;
-}
 
-.signup-link {
-  text-align: center;
-  font-size: 0.95rem;
-  color: #7f8c8d;
-}
-.signup-link a {
-  color: #3498db;
-  font-weight: 600;
-  text-decoration: none;
-}
-.signup-link a:hover {
-  text-decoration: underline;
-}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-    max-width: 400px;
-  }
-  .bank-image-section {
-    padding: 1.5rem;
-  }
-}
+
+                <br>
+                <br>
+
+
+                <label for="dateOfBirth">Date Of Birth</label>
+                <input type="date" name="dateOfBirth" placeholder="Enter Date of Birth.."
+                    [(ngModel)]="customer.dateOfBirth">
+
+
+                <div *ngIf="hasValidationError('dateOfBirth')">
+                    {{getValidationErrorMessage('dateOfBirth')}}
+                </div>
+
+
+
+
+
+
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" [(ngModel)]="customer.gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+
+                <div *ngIf="hasValidationError('gender')">
+                    {{getValidationErrorMessage('gender')}}
+                </div>
+
+
+           
+<br><br>
+                <label for="mobileNum">Mobile Number</label>
+                <input type="text" name="mobileNum" placeholder="Enter your Mobile Number.."
+                    [(ngModel)]="customer.mobileNum">
+
+
+
+
+                <div *ngIf="hasValidationError('mobileNum')">
+                    {{getValidationErrorMessage('mobileNum')}}
+                </div>
+
+
+
+
+                <br><br>
+
+
+
+
+                <label for="emailId">Email Id</label>
+                <input type="text" name="emailId" placeholder="Enter your Email Id.." [(ngModel)]="customer.emailId">
+
+
+
+
+                <div *ngIf="hasValidationError('emailId')">
+                    {{getValidationErrorMessage('emailId')}}
+                </div>
+
+
+       
+
+
+                <label for="aadharNo">Aadhar Number</label>
+                <input type="text" name="aadharNo" placeholder="Enter your Aadhar Number.."
+                    [(ngModel)]="customer.aadharNo">
+
+
+
+
+                <div *ngIf="hasValidationError('aadharNo')">
+                    {{getValidationErrorMessage('aadharNo')}}
+                </div>
+
+
+                <br><br>
+
+
+                <label for="streetName">Street Name</label>
+                <input type="text" name="streetName" placeholder="Enter Street Name.."
+                    [(ngModel)]="customer.streetName">
+
+
+
+
+                <div *ngIf="hasValidationError('streetName')">
+                    {{getValidationErrorMessage('streetName')}}
+                </div>
+
+
+                <br><br>
+
+
+                <label for="city">City</label>
+                <input type="text" name="city" placeholder="Enter City.." [(ngModel)]="customer.city">
+
+
+
+
+                <div *ngIf="hasValidationError('city')">
+                    {{getValidationErrorMessage('city')}}
+                </div>
+
+
+                <br><br>
+
+
+                <label for="state">State</label>
+                <select name="state" [(ngModel)]="customer.state">
+                    <option value="-">Select State</option>
+                    <option *ngFor="let s of state" value="{{s}}">{{s}}</option>
+                </select>
+                <div *ngIf="hasValidationError('state')">
+                    {{getValidationErrorMessage('state')}}
+                </div>
+
+
+
+
+                <br><br>
+
+
+                <label for="pincode">Pincode</label>
+                <input type="text" name="pincode" placeholder="Enter your pincode.." [(ngModel)]="customer.pincode">
+
+
+                <div *ngIf="hasValidationError('pincode')">
+                    {{getValidationErrorMessage('pincode')}}
+                </div>
+
+
+                <br><br>
+
+
+
+
+                <label for="username">Username</label>
+                <input type="text" name="username" placeholder="Create Username" [(ngModel)]="customer.username">
+
+
+
+
+                <div *ngIf="hasValidationError('username')">
+                    {{getValidationErrorMessage('username')}}
+                </div>
+
+
+                <br><br>
+
+
+
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Create your Password"
+                    [(ngModel)]="customer.password">
+                <span class="input-icon">🔒</span>
+
+
+                <div *ngIf="hasValidationError('password')">
+                    {{getValidationErrorMessage('password')}}
+                </div>
+
+
+                <br><br>
+
+
+                <label for="accountType">Account Type</label>
+                <select name="accountType" id="accountType" [(ngModel)]="customer.accountType">
+                    <option value="Saving">Saving</option>
+                    <option value="Current">Current</option>
+                    <option value="Fixed Deposit">Fixed Deposit</option>
+                </select>
+
+
+                <div *ngIf="hasValidationError('accountType')">
+                    {{getValidationErrorMessage('accountType')}}
+                </div>
+
+
+                <br>
+                <button  type="submit" value="Submit">Submit</button>
+            </form>
+        </div>
+
+
+
+
+        <div [hidden]="!isVisible">
+            <br>
+            <h4>
+                Your Verification is on Review
+            </h4>
+            <button (click)="backToHome()">Back to Home</button>
+            <br>
+        </div>
+
+
+    </div>
+
+
+</div>
 
