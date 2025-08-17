@@ -535,3 +535,208 @@ to { transform: rotate(360deg); }
                     </button>
                 </td>
             </tr>
+        </table>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="!cheques || cheques.length === 0">
+            <div class="icon">📝</div>
+            <h3>No Pending Cheques</h3>
+            <p>All cheques have been processed.</p>
+        </div>
+    </div>
+
+    <!-- Detailed Cheque Info Section -->
+    <div class="cheque-details-section" [hidden]="!isVisible">
+        <div class="details-header">
+            <h1>
+                <span>🔍</span>
+                Cheque Detailed Information
+            </h1>
+        </div>
+
+        <!-- Issuer and Payee Information Grid -->
+        <div class="details-grid">
+            <!-- Issuer Information -->
+            <div class="detail-table">
+                <h3>💳 Issuer Information</h3>
+                <table>
+                    <tr>
+                        <th>Cheque No</th>
+                        <td>{{extendedChequeDetailDTO.chequeNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Issuer Name</th>
+                        <td>{{extendedChequeDetailDTO.issuerName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Account No</th>
+                        <td>{{extendedChequeDetailDTO.customerAccountNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Account Type</th>
+                        <td>{{extendedChequeDetailDTO.issuerAccountType}}</td>
+                    </tr>
+                    <tr>
+                        <th>Current Balance</th>
+                        <td>₹{{extendedChequeDetailDTO.issuerBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Saving'">
+                        <th>Min Balance Required</th>
+                        <td>₹{{extendedChequeDetailDTO.savingMinBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current'">
+                        <th>Overdraft Balance</th>
+                        <td>₹{{extendedChequeDetailDTO.overDraftBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current'">
+                        <th>Overdraft Limit</th>
+                        <td>₹{{extendedChequeDetailDTO.overDraftLimit}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current'">
+                        <th>Overdraft Used</th>
+                        <td>₹{{extendedChequeDetailDTO.overDraftLimit - extendedChequeDetailDTO.overDraftBalance}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Payee Information -->
+            <div class="detail-table">
+                <h3>👤 Payee Information</h3>
+                <table>
+                    <tr>
+                        <th>Payee Name</th>
+                        <td>{{extendedChequeDetailDTO.payeeName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Account No</th>
+                        <td>{{extendedChequeDetailDTO.payeeAccountNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Account Type</th>
+                        <td>{{extendedChequeDetailDTO.payeeAccountType}}</td>
+                    </tr>
+                    <tr>
+                        <th>Current Balance</th>
+                        <td>₹{{extendedChequeDetailDTO.payeeBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.payeeAccountType=='Saving'">
+                        <th>Min Balance Required</th>
+                        <td>₹{{extendedChequeDetailDTO.savingMinBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.payeeAccountType=='Current'">
+                        <th>Overdraft Balance</th>
+                        <td>₹{{extendedChequeDetailDTO.payeeOverdraftBalance}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.payeeAccountType=='Current'">
+                        <th>Overdraft Limit</th>
+                        <td>₹{{extendedChequeDetailDTO.payeeOverdraftLimit}}</td>
+                    </tr>
+                    <tr *ngIf="extendedChequeDetailDTO.payeeAccountType=='Current'">
+                        <th>Overdraft Used</th>
+                        <td>₹{{extendedChequeDetailDTO.payeeOverdraftLimit - extendedChequeDetailDTO.payeeOverdraftBalance}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Transaction Summary -->
+        <div class="summary-table">
+            <h3>💰 Transaction Summary</h3>
+            <table>
+                <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Saving'">
+                    <th>Available Balance</th>
+                    <td>₹{{extendedChequeDetailDTO.issuerBalance}}</td>
+                </tr>
+                <tr *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current'">
+                    <th>Total Available Balance</th>
+                    <td>₹{{extendedChequeDetailDTO.issuerBalance + extendedChequeDetailDTO.overDraftBalance}}</td>
+                </tr>
+                <tr>
+                    <th>Cheque Amount</th>
+                    <td>₹{{extendedChequeDetailDTO.chequeAmount}}</td>
+                </tr>
+                <tr>
+                    <th>Transaction Status</th>
+                    <td>
+                        <span *ngIf="extendedChequeDetailDTO.issuerAccountType=='Saving' && extendedChequeDetailDTO.issuerBalance >= extendedChequeDetailDTO.chequeAmount" 
+                              style="color: #27ae60; font-weight: bold;">✅ Sufficient Balance</span>
+                        <span *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current' && (extendedChequeDetailDTO.issuerBalance + extendedChequeDetailDTO.overDraftBalance) >= extendedChequeDetailDTO.chequeAmount" 
+                              style="color: #27ae60; font-weight: bold;">✅ Sufficient Balance</span>
+                        <span *ngIf="extendedChequeDetailDTO.issuerAccountType=='Saving' && extendedChequeDetailDTO.issuerBalance < extendedChequeDetailDTO.chequeAmount" 
+                              style="color: #e74c3c; font-weight: bold;">❌ Insufficient Balance</span>
+                        <span *ngIf="extendedChequeDetailDTO.issuerAccountType=='Current' && (extendedChequeDetailDTO.issuerBalance + extendedChequeDetailDTO.overDraftBalance) < extendedChequeDetailDTO.chequeAmount" 
+                              style="color: #e74c3c; font-weight: bold;">❌ Insufficient Balance</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn-approve" 
+                    (click)="chequeClearance(chequeClearanceOperation(extendedChequeDetailDTO))"
+                    [disabled]="(extendedChequeDetailDTO.issuerAccountType=='Saving' && extendedChequeDetailDTO.issuerBalance < extendedChequeDetailDTO.chequeAmount) || 
+                               (extendedChequeDetailDTO.issuerAccountType=='Current' && (extendedChequeDetailDTO.issuerBalance + extendedChequeDetailDTO.overDraftBalance) < extendedChequeDetailDTO.chequeAmount)">
+                <span class="loading" style="display: none;"></span>
+                ✅ Clear Cheque
+            </button>
+            <button class="btn-bounce">
+                ❌ Bounce Cheque
+            </button>
+        </div>
+    </div>
+
+    <!-- Transaction Result -->
+    <div class="transaction-status" [hidden]="transactionVisible">
+        <p>
+            <span *ngIf="transactionDTO.status === 'Success'">✅</span>
+            <span *ngIf="transactionDTO.status !== 'Success'">❌</span>
+            Transaction {{transactionDTO.status}} - Transaction ID: {{transactionDTO.transactionId}}
+        </p>
+    </div>
+</main>
+
+<script>
+// Mock functions for demonstration
+function createChequeDTO(chequeNo, customerAccountNo, payeeAccountNo) {
+    return {
+        chequeNo: chequeNo,
+        customerAccountNo: customerAccountNo,
+        payeeAccountNo: payeeAccountNo
+    };
+}
+
+function chequeClearanceOperation(extendedChequeDetailDTO) {
+    return {
+        // Your clearance operation logic
+        chequeNo: extendedChequeDetailDTO.chequeNo,
+        amount: extendedChequeDetailDTO.chequeAmount,
+        issuerAccount: extendedChequeDetailDTO.customerAccountNo,
+        payeeAccount: extendedChequeDetailDTO.payeeAccountNo
+    };
+}
+
+// Add loading animation for buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const approveBtn = document.querySelector('.btn-approve');
+    const bounceBtn = document.querySelector('.btn-bounce');
+    
+    if (approveBtn) {
+        approveBtn.addEventListener('click', function() {
+            const loading = this.querySelector('.loading');
+            if (loading) {
+                loading.style.display = 'inline-block';
+                this.disabled = true;
+                
+                // Reset after processing (remove in actual implementation)
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    this.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
