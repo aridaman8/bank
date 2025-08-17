@@ -1,0 +1,65 @@
+<header>
+  <div class="header-content">
+    <div class="logo">
+      <div class="logo-icon">SB</div>
+      SecureBank
+    </div>
+    <div class="user-info">
+      <h1>Welcome, {{ showUsername() }}</h1>
+      <div class="user-avatar">JD</div>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<div class="main-layout">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h2>Dashboard</h2>
+      <p>Quick access to all services</p>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-title">Banking Services</div>
+      <a routerLink="overview" routerLinkActive="active" class="menu-item">
+        🏠 Account Overview
+      </a>
+      <a routerLink="issue-cheque" routerLinkActive="active" class="menu-item">
+        📝 Issue Cheque
+      </a>
+      <a routerLink="pending-cheques" routerLinkActive="active" class="menu-item">
+        ⏳ Pending Cheques
+      </a>
+      <a routerLink="neft-transfer" routerLinkActive="active" class="menu-item">
+        💸 NEFT Transfer
+      </a>
+      <a routerLink="fund-transfer" routerLinkActive="active" class="menu-item">
+        🔄 Fund Transfer
+      </a>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-title">Account Management</div>
+      <a routerLink="statements" routerLinkActive="active" class="menu-item">
+        📊 Bank Statements
+      </a>
+      <a routerLink="transactions" routerLinkActive="active" class="menu-item">
+        📋 Transaction History
+      </a>
+    </div>
+  </nav>
+
+  <!-- Right content changes here -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+
+
+
+-----------------
+
+
+
